@@ -321,6 +321,18 @@ sub get_attributes
 	}
 	report_info("The file $pomfilepath is used for parsing ");
 
+	# create xml object for parsing the file
+	#my $xml = new XML::Simple;
+	#my $data = $xml->XMLin($pomfilepath);
+
+	#access XML data
+	$groupId = '';
+
+	$artifactId = '';
+
+	$packaging = '';
+
+	$version = '';
 }
 
 ####################################################################################################
@@ -334,7 +346,7 @@ sub generate_update_command
 	# Prepare agruments for the command
 	$groupIdpath = $groupId;
 	$groupIdpath =~ s/\./\//g;
-	$from_path = "$workspacepath\/".REPO."\/$groupIdpath\/$artifactId\/$version/";
+	$from_path = "$workspacepath";
 
 	$prd = uc $product;
 	$strm = uc $tostream;
@@ -362,8 +374,8 @@ sub transfer_files
 	# Prepare agruments for the command
 	$groupIdpath = $groupId;
 	$groupIdpath =~ s/\./\//g;
-	$from_path = "$workspacepath\/".REPO."\/$groupIdpath\/$artifactId\/$version/";
-	$from_file = "$artifactId-$version.$packaging";
+	$from_path = "$workspacepath";
+	$from_file = "sample.txt";
         #$rel_path = qq["$streampath/$from_file"];
 
         if ( $streampath =~ "std" ){
@@ -394,15 +406,15 @@ sub generate_transfer_command
 	# Prepare agruments for the command
 	$groupIdpath = $groupId;
 	$groupIdpath =~ s/\./\//g;
-	$from_path = "$workspacepath\/".REPO."\/$groupIdpath\/$artifactId\/$version/";
-	$from_file = "$artifactId-$version.$packaging";
+	$from_path = "$workspacepath";
+	$from_file = "sample.txt";
         if ($streampath =~ "std"){
-			$rel_path = qq["$streampath/batch/lib/$from_file"];
+			$rel_path = "sample.txt";
         }
         else {
-        $rel_path = qq["$streampath/$from_file"];
+        $rel_path = "sample.txt";
         }
-	$bl_name = qq["bl_$artifactId-$version.$packaging"];
+	$bl_name = "sample.txt";
 
 	#update the timestamp so Dimensions will acknowledge the post-UPDATE command change
 	$future_time = `date -d "now + 1 minutes" +'%y%m%d%H%M'`;
@@ -463,8 +475,8 @@ sub execute_dimcm
 	# Prepare agruments for the command
 	$groupIdpath = $groupId;
 	$groupIdpath =~ s/\./\//g;
-	$from_path = "$workspacepath\/".REPO."\/$groupIdpath\/$artifactId\/$version";
-	$from_file = qq["$artifactId-$version.$packaging"];
+	$from_path = "$workspacepath";
+	$from_file = "sample.txt";
 #	$dm_file = $logpath.'dm_cmdfile.txt';
 	$dm_file = 'dm_cmdfile'.$_[1].'.txt';
 	$cmd = $_[0];
@@ -520,7 +532,7 @@ sub generate_cleanup_command
 	my ($prd, $strm, $cmd);
 	$groupIdpath = $groupId;
 	$groupIdpath =~ s/\./\//g;
-	$from_path = "$workspacepath\/".REPO."\/$groupIdpath\/$artifactId\/$version/";
+	$from_path = "$workspacepath";
 
 	$prd = uc $product;
 	$strm = uc $tostream;
@@ -656,12 +668,12 @@ if( defined $verbose ) {
 	report_info("GRP: $grp");
 }
 get_credentials($credentials);
-get_attributes;
+#get_attributes;
 execute_dimcm(generate_update_command(),"_update");
 transfer_files;
 my $dmcli_output = execute_dimcm(generate_transfer_command(),"_tx");
 #$dmcli_output = 'Preserved \'/home/jperz01/work/.repository/com/example/test/0.1-SNAPSHOT/jptest2/test-0.1-SNAPSHOT.pom\' as Item "TEST:TEST 0 1 SNAPSHOT POM-243119155X13540X2.A-DAT;jptest2#1"'
 #$dmcli_output = 'Preserved \'\\D2NTAPNAS01\CHDMQA_STAGE\jperz00\JPTEST2\jptest\test\test.txt\' as Item "TEST:TEST TXT-242413780X12388X20.A-SRC;jptest2#1"';
-execute_dimcm(generate_cleanup_command($dmcli_output),"_cls");
+#execute_dimcm(generate_cleanup_command($dmcli_output),"_cls");
 
 close LOG;
