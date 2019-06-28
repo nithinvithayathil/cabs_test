@@ -321,22 +321,6 @@ sub get_attributes
 	}
 	report_info("The file $pomfilepath is used for parsing ");
 
-	# create xml object for parsing the file
-	my $xml = new XML::Simple;
-	my $data = $xml->XMLin($pomfilepath);
-
-	#access XML data
-	$groupId = $data->{groupId} or report_error("groupId not extracted from xml file");
-	report_info("The extracted groupId is  \"$groupId\"");
-
-	$artifactId = $data->{artifactId} or report_error("artifactId not extracted from xml file");
-	report_info("The extracted artifactId is \"$artifactId\"");
-
-	$packaging = $data->{packaging} or report_error("packaging not extracted from xml file");
-	report_info("The extracted packaging is \"$packaging\"");
-
-	$version = $data->{version} or report_error("version not extracted from xml file");
-	report_info("The extracted version is  \"$version\"");
 }
 
 ####################################################################################################
@@ -672,7 +656,7 @@ if( defined $verbose ) {
 	report_info("GRP: $grp");
 }
 get_credentials($credentials);
-#get_attributes;
+get_attributes;
 execute_dimcm(generate_update_command(),"_update");
 transfer_files;
 my $dmcli_output = execute_dimcm(generate_transfer_command(),"_tx");
