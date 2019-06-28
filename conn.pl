@@ -409,10 +409,10 @@ sub generate_transfer_command
 	$from_path = "$workspacepath";
 	$from_file = "sample.txt";
         if ($streampath =~ "std"){
-			$rel_path = "sample.txt";
+			$rel_path = "pabs_dev/sample.txt";
         }
         else {
-        $rel_path = "sample.txt";
+        $rel_path = "pabs_dev/sample.txt";
         }
 	$bl_name = "sample.txt";
 
