@@ -435,7 +435,7 @@ sub generate_transfer_command
 	       "DELIVER /USER_DIRECTORY=\"$from_path\/$streampath\" /COMMENT=\"$comment\" /DESCRIPTION=\"$comment\" /ADD /UPDATE\n";
     } else {
 	$cmd = "SCWS \"$prd:$strm\" /DIRECTORY=\"$from_path\" /NODEFAULT\n".
-	       "DELIVER $rel_path /COMMENT=\"$comment\" /DESCRIPTION=\"$comment\" /ADD\n";
+	       "DELIVER \"$rel_path\" /COMMENT=\"$comment\" /DESCRIPTION=\"$comment\" /ADD\n";
     }	
 	
 
@@ -451,7 +451,7 @@ sub generate_transfer_command
 		} else {
 			$stage="DEV";
 		}
-		$cmd = $cmd . "PMI $rel_path /STAGE=$stage /WORKSET=\"$prd:$strm\"\n";
+		$cmd = $cmd . "PMI \"$rel_path\" /STAGE=$stage /WORKSET=\"$prd:$strm\"\n";
 	}
 	#allow auto baseline for any environment,
 	#but always baseline prd
@@ -459,7 +459,7 @@ sub generate_transfer_command
             $tostage eq 'prd' or
             $tostage eq 'prd-wlpj' )
 	{
-		$cmd = $cmd . "CBL $bl_name /PART=\"$prd:$strm.A;1\" /template_id=\"ALL_ITEMS_APPROVED\" /TYPE=\"BASELINE\" /SCOPE=\"PART\" /WORKSET=\"$prd:$strm\"\n";
+		$cmd = $cmd . "CBL \"$bl_name\" /PART=\"$prd:$strm.A;1\" /template_id=\"ALL_ITEMS_APPROVED\" /TYPE=\"BASELINE\" /SCOPE=\"PART\" /WORKSET=\"$prd:$strm\"\n";
 	}
 	return $cmd;
 }
