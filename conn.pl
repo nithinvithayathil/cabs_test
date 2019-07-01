@@ -375,7 +375,7 @@ sub transfer_files
 	$groupIdpath = $groupId;
 	$groupIdpath =~ s/\./\//g;
 	$from_path = "$workspacepath";
-	$from_file = "sample.txt";
+	$from_file = "sample.002.txt";
         #$rel_path = qq["$streampath/$from_file"];
 
         if ( $streampath =~ "std" ){
@@ -407,14 +407,14 @@ sub generate_transfer_command
 	$groupIdpath = $groupId;
 	$groupIdpath =~ s/\./\//g;
 	$from_path = "$workspacepath";
-	$from_file = "sample.txt";
+	$from_file = "sample.002.txt";
         if ($streampath =~ "std"){
-			$rel_path = "pabs_dev/sample.txt";
+			$rel_path = "pabs_dev/sample.002.txt";
         }
         else {
-        $rel_path = "pabs_dev/sample.txt";
+        $rel_path = "pabs_dev/sample.002.txt";
         }
-	$bl_name = "sample.txt";
+	$bl_name = "sample.002.txt";
 
 	#update the timestamp so Dimensions will acknowledge the post-UPDATE command change
 	$future_time = `date -d "now + 1 minutes" +'%y%m%d%H%M'`;
@@ -476,7 +476,7 @@ sub execute_dimcm
 	$groupIdpath = $groupId;
 	$groupIdpath =~ s/\./\//g;
 	$from_path = "$workspacepath";
-	$from_file = "sample.txt";
+	$from_file = "sample.002.txt";
 #	$dm_file = $logpath.'dm_cmdfile.txt';
 	$dm_file = 'dm_cmdfile'.$_[1].'.txt';
 	$cmd = $_[0];
