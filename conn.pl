@@ -424,9 +424,9 @@ sub generate_transfer_command
 	print $future_time;
 
 	$prd = uc $product;
-	print "hai"
+	print "hai";
 	print $product;
-	print "hello"
+	print "hello";
 	print $prd;
 	#	$prd = uc $dmcm_prod;
 #	$prt = uc $dmcm_part;
