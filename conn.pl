@@ -671,6 +671,7 @@ get_credentials($credentials);
 #get_attributes;
 execute_dimcm(generate_update_command(),"_update");
 transfer_files;
+generate_transfer_command();
 #my $dmcli_output = execute_dimcm(generate_transfer_command(),"_tx");
 #$dmcli_output = 'Preserved \'/home/jperz01/work/.repository/com/example/test/0.1-SNAPSHOT/jptest2/test-0.1-SNAPSHOT.pom\' as Item "TEST:TEST 0 1 SNAPSHOT POM-243119155X13540X2.A-DAT;jptest2#1"'
 #$dmcli_output = 'Preserved \'\\D2NTAPNAS01\CHDMQA_STAGE\jperz00\JPTEST2\jptest\test\test.txt\' as Item "TEST:TEST TXT-242413780X12388X20.A-SRC;jptest2#1"';
