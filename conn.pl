@@ -419,6 +419,8 @@ sub generate_transfer_command
 	$future_time =~ s/^\s+//;
 	$future_time =~ s/\s+$//;
 	`touch -c -t $future_time $from_path$rel_path`;
+	print $from_path$rel_path;
+	print $future_time;
 
 	$prd = uc $product;
 #	$prd = uc $dmcm_prod;
