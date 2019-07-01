@@ -404,8 +404,6 @@ sub generate_transfer_command
 	my ($prd, $prt, $strm, $comment, $bl_name, $cmd, $future_time);
 
 	# Prepare agruments for the command
-	$groupIdpath = $groupId;
-	$groupIdpath =~ s/\./\//g;
 	$from_path = "$workspacepath";
 	$from_file = "sample.006.txt";
         if ($streampath =~ "std"){
