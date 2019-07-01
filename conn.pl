@@ -427,7 +427,7 @@ sub generate_transfer_command
 	print "hai"
 	print $product;
 	print "hello"
-	print $prd
+	print $prd;
 	#	$prd = uc $dmcm_prod;
 #	$prt = uc $dmcm_part;
 	$strm = uc $tostream;
