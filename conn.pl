@@ -557,7 +557,7 @@ sub generate_cleanup_command
 	{
 		if (!$item_spec eq "")
 		{
-                       if ($item_spec =~ "EAR") {
+                       if ($item_spec =~ "txt") {
 			$cmd = $cmd."SI $item_spec\n";
                        }
 		}
@@ -565,21 +565,6 @@ sub generate_cleanup_command
 	print "@@@@@@@@@@@@@@@@@@@@@@@@@";
 	print "cmd : $cmd";
 	my $cleanup_script = '/appl/chje/adm/scripts/build-cleanup.pl';
-	if ($cleanup_property_file)
-	{
-		foreach my $item_file (split("\n", $item_files))
-		{
-			$item_file =~ s/$from_path//;
-			if (!$item_file eq "" and $retention_limit)
-			{
-				report_info(`$cleanup_script -logpath $logpath -file $item_file -property_file $cleanup_property_file -retention_limit $retention_limit -stream_cleanup $credentials -workset $prd:$strm -workarea $from_path`);
-			}
-			elsif (!$item_file eq "")
-			{
-				report_info(`$cleanup_script -logpath $logpath -file $item_file -property_file $cleanup_property_file -stream_cleanup $credentials -workset $prd:$strm -workarea $from_path`);
-			}
-		}
-	}
 	return $cmd;
 }
 
