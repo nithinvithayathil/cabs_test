@@ -375,7 +375,7 @@ sub transfer_files
 	$groupIdpath = $groupId;
 	$groupIdpath =~ s/\./\//g;
 	$from_path = "$workspacepath";
-	$from_file = "sample.006.txt";
+	$from_file = "sample.007.txt";
         #$rel_path = qq["$streampath/$from_file"];
 
         if ( $streampath =~ "std" ){
@@ -405,14 +405,14 @@ sub generate_transfer_command
 
 	# Prepare agruments for the command
 	$from_path = "$workspacepath";
-	$from_file = "sample.006.txt";
+	$from_file = "sample.007.txt";
         if ($streampath =~ "std"){
-			$rel_path = "pabs_dev/sample.006.txt";
+			$rel_path = "pabs_dev/sample.007.txt";
         }
         else {
-        $rel_path = "pabs_dev/sample.006.txt";
+        $rel_path = "pabs_dev/sample.007.txt";
         }
-	$bl_name = "sample.006.txt";
+	$bl_name = "sample.007.txt";
 
 	#update the timestamp so Dimensions will acknowledge the post-UPDATE command change
 	$future_time = `date -d "now + 1 minutes" +'%y%m%d%H%M'`;
@@ -481,7 +481,7 @@ sub execute_dimcm
 	$groupIdpath = $groupId;
 	$groupIdpath =~ s/\./\//g;
 	$from_path = "$workspacepath";
-	$from_file = "sample.006.txt";
+	$from_file = "sample.007.txt";
 #	$dm_file = $logpath.'dm_cmdfile.txt';
 	$dm_file = 'dm_cmdfile'.$_[1].'.txt';
 	$cmd = $_[0];
@@ -546,6 +546,11 @@ sub generate_cleanup_command
 
 	my $item_specs = read_item_specs_from_output($_[0]);
 	my $item_files = read_item_files_from_output($_[0]);
+	
+	print "######################";
+	print "item_specs : $item_specs";
+	print "item_files : $item_files";
+	
 	#print "\nItem Specs:\n$item_specs\n";
 
 	foreach my $item_spec (split("\n", $item_specs))
@@ -557,6 +562,8 @@ sub generate_cleanup_command
                        }
 		}
 	}
+	print "@@@@@@@@@@@@@@@@@@@@@@@@@";
+	print "cmd : $cmd";
 	my $cleanup_script = '/appl/chje/adm/scripts/build-cleanup.pl';
 	if ($cleanup_property_file)
 	{
@@ -676,10 +683,13 @@ get_credentials($credentials);
 #get_attributes;
 execute_dimcm(generate_update_command(),"_update");
 transfer_files;
-generate_transfer_command();
-#my $dmcli_output = execute_dimcm(generate_transfer_command(),"_tx");
+#generate_transfer_command();
+my $dmcli_output = execute_dimcm(generate_transfer_command(),"_tx");
 #$dmcli_output = 'Preserved \'/home/jperz01/work/.repository/com/example/test/0.1-SNAPSHOT/jptest2/test-0.1-SNAPSHOT.pom\' as Item "TEST:TEST 0 1 SNAPSHOT POM-243119155X13540X2.A-DAT;jptest2#1"'
 #$dmcli_output = 'Preserved \'\\D2NTAPNAS01\CHDMQA_STAGE\jperz00\JPTEST2\jptest\test\test.txt\' as Item "TEST:TEST TXT-242413780X12388X20.A-SRC;jptest2#1"';
+print "************************";
+print $dmcli_output;
+generate_cleanup_command($dmcli_output);
 #execute_dimcm(generate_cleanup_command($dmcli_output),"_cls");
 
 close LOG;
