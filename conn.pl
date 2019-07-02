@@ -557,7 +557,7 @@ sub generate_cleanup_command
 	{
 		if (!$item_spec eq "")
 		{
-                       if ($item_spec =~ "txt") {
+                       if ($item_spec =~ "TXT") {
 			$cmd = $cmd."SI $item_spec\n";
                        }
 		}
@@ -674,7 +674,7 @@ my $dmcli_output = execute_dimcm(generate_transfer_command(),"_tx");
 #$dmcli_output = 'Preserved \'\\D2NTAPNAS01\CHDMQA_STAGE\jperz00\JPTEST2\jptest\test\test.txt\' as Item "TEST:TEST TXT-242413780X12388X20.A-SRC;jptest2#1"';
 print "************************";
 print $dmcli_output;
-generate_cleanup_command($dmcli_output);
-#execute_dimcm(generate_cleanup_command($dmcli_output),"_cls");
+#generate_cleanup_command($dmcli_output);
+execute_dimcm(generate_cleanup_command($dmcli_output),"_cls");
 
 close LOG;
